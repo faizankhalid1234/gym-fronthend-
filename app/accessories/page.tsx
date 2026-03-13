@@ -30,7 +30,7 @@ export default function AccessoriesPage() {
 
   const fetchAccessories = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://gym-backend-ten-psi.vercel.app/api'
       const response = await axios.get(`${apiUrl}/accessories`)
       setAccessories(response.data)
     } catch (error: any) {

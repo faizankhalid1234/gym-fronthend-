@@ -34,7 +34,7 @@ export default function ProductDetailPage() {
 
   const fetchProduct = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://gym-backend-ten-psi.vercel.app/api'
       const response = await axios.get(`${apiUrl}/products/${params.id}`)
       setProduct(response.data)
     } catch (error: any) {

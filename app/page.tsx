@@ -35,7 +35,7 @@ export default function Home() {
 
   const fetchFeaturedItems = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://gym-backend-ten-psi.vercel.app/api'
       const [productsRes, accessoriesRes] = await Promise.all([
         axios.get(`${apiUrl}/products/featured`),
         axios.get(`${apiUrl}/accessories/featured`)
@@ -45,7 +45,7 @@ export default function Home() {
     } catch (error: any) {
       console.error('Error fetching featured items:', error)
       if (error.request) {
-        console.error('Network Error: Backend server might not be running on port 5000')
+        console.error('Network Error: Unable to connect to backend API')
       }
     } finally {
       setLoading(false)
