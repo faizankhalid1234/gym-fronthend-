@@ -16,6 +16,7 @@ interface Accessory {
   color?: string
   size?: string
   rating?: number
+  featured?: boolean
 }
 
 export default function AccessoriesPage() {

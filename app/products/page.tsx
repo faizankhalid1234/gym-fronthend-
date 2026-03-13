@@ -14,6 +14,7 @@ interface Product {
   stock: number
   brand?: string
   rating?: number
+  featured?: boolean
 }
 
 export default function ProductsPage() {
