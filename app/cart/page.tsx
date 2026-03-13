@@ -2,6 +2,7 @@
 
 import { useCart } from '@/context/CartContext'
 import Link from 'next/link'
+import { getImageUrl } from '@/lib/utils'
 import { useState } from 'react'
 
 export default function CartPage() {
@@ -63,7 +64,7 @@ export default function CartPage() {
                   <div className="w-full sm:w-32 h-32 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
                     {item.image ? (
                       <img
-                        src={item.image}
+                        src={getImageUrl(item.image)}
                         alt={item.name}
                         className="w-full h-full object-cover"
                       />

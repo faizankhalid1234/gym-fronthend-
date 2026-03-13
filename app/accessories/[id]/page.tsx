@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import axios from 'axios'
 import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
+import { getImageUrl } from '@/lib/utils'
 
 interface Accessory {
   _id: string
@@ -84,7 +85,7 @@ export default function AccessoryDetailPage() {
             <div className="md:w-1/2 relative h-96 md:h-[600px] bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
               {accessory.image ? (
                 <img
-                  src={accessory.image}
+                  src={getImageUrl(accessory.image)}
                   alt={accessory.name}
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -157,7 +158,7 @@ export default function AccessoryDetailPage() {
                       id: accessory._id,
                       name: accessory.name,
                       price: accessory.price,
-                      image: accessory.image || '',
+                      image: getImageUrl(accessory.image) || '',
                       type: 'accessory'
                     })
                     setAdded(true)
