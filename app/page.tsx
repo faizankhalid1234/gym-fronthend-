@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { getImageUrl } from '@/lib/utils'
+import { DEMO_PRODUCTS, DEMO_ACCESSORIES } from '@/lib/demoData'
 
 interface Product {
   _id: string
@@ -41,13 +42,13 @@ export default function Home() {
         axios.get(`${apiUrl}/products/featured`),
         axios.get(`${apiUrl}/accessories/featured`)
       ])
-      setFeaturedProducts(productsRes.data)
-      setFeaturedAccessories(accessoriesRes.data)
+      const prods = productsRes?.data
+      const accs = accessoriesRes?.data
+      setFeaturedProducts(Array.isArray(prods) && prods.length > 0 ? prods : DEMO_PRODUCTS.filter((p) => p.featured))
+      setFeaturedAccessories(Array.isArray(accs) && accs.length > 0 ? accs : DEMO_ACCESSORIES.filter((a) => a.featured))
     } catch (error: any) {
-      console.error('Error fetching featured items:', error)
-      if (error.request) {
-        console.error('Network Error: Unable to connect to backend API')
-      }
+      setFeaturedProducts(DEMO_PRODUCTS.filter((p) => p.featured))
+      setFeaturedAccessories(DEMO_ACCESSORIES.filter((a) => a.featured))
     } finally {
       setLoading(false)
     }

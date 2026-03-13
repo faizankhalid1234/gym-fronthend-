@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import axios from 'axios'
 import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 import { getImageUrl } from '@/lib/utils'
+import { getDemoProduct } from '@/lib/demoData'
 
 interface Product {
   _id: string
@@ -21,7 +22,6 @@ interface Product {
 
 export default function ProductDetailPage() {
   const params = useParams()
-  const router = useRouter()
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
   const { addToCart } = useCart()
@@ -39,10 +39,8 @@ export default function ProductDetailPage() {
       const response = await axios.get(`${apiUrl}/products/${params.id}`)
       setProduct(response.data)
     } catch (error: any) {
-      console.error('Error fetching product:', error)
-      if (error.response?.status === 404) {
-        setProduct(null)
-      }
+      const demo = getDemoProduct(String(params.id))
+      setProduct(demo)
     } finally {
       setLoading(false)
     }

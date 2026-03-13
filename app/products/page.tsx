@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { getImageUrl } from '@/lib/utils'
+import { DEMO_PRODUCTS } from '@/lib/demoData'
 
 interface Product {
   _id: string
@@ -31,12 +32,10 @@ export default function ProductsPage() {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://gym-backend-ten-psi.vercel.app/api'
       const response = await axios.get(`${apiUrl}/products`)
-      setProducts(response.data)
+      const data = response?.data
+      setProducts(Array.isArray(data) && data.length > 0 ? data : DEMO_PRODUCTS)
     } catch (error: any) {
-      console.error('Error fetching products:', error)
-      if (error.request) {
-        console.error('Network Error: Backend server might not be running')
-      }
+      setProducts(DEMO_PRODUCTS)
     } finally {
       setLoading(false)
     }

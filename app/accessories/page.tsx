@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { getImageUrl } from '@/lib/utils'
+import { DEMO_ACCESSORIES } from '@/lib/demoData'
 
 interface Accessory {
   _id: string
@@ -33,15 +34,10 @@ export default function AccessoriesPage() {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://gym-backend-ten-psi.vercel.app/api'
       const response = await axios.get(`${apiUrl}/accessories`)
-      setAccessories(response.data)
+      const data = response?.data
+      setAccessories(Array.isArray(data) && data.length > 0 ? data : DEMO_ACCESSORIES)
     } catch (error: any) {
-      console.error('Error fetching accessories:', error)
-      // Show error message to user
-      if (error.response) {
-        console.error('API Error:', error.response.status, error.response.data)
-      } else if (error.request) {
-        console.error('Network Error: Backend server might not be running')
-      }
+      setAccessories(DEMO_ACCESSORIES)
     } finally {
       setLoading(false)
     }

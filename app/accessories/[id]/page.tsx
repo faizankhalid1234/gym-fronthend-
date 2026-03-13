@@ -6,6 +6,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 import { getImageUrl } from '@/lib/utils'
+import { getDemoAccessory } from '@/lib/demoData'
 
 interface Accessory {
   _id: string
@@ -40,10 +41,8 @@ export default function AccessoryDetailPage() {
       const response = await axios.get(`${apiUrl}/accessories/${params.id}`)
       setAccessory(response.data)
     } catch (error: any) {
-      console.error('Error fetching accessory:', error)
-      if (error.response?.status === 404) {
-        setAccessory(null)
-      }
+      const demo = getDemoAccessory(String(params.id))
+      setAccessory(demo)
     } finally {
       setLoading(false)
     }
